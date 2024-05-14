@@ -1,21 +1,14 @@
-function getPermutation(n, k) {
-  const nums = Array.from({ length: n }, (_, i) => i + 1);
-  let result = "";
-  let count = 0;
-  const backtrack = (current) => {
-    if (current.length === n) {
-      count++;
-      if (count === k) result = current.join("");
-      return;
+function selectionSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[minIndex]) minIndex = j;
     }
-    if (count >= k) return;
-    for (const num of nums) {
-      if (current.includes(num)) continue;
-      current.push(num);
-      backtrack(current);
-      current.pop();
+    if (minIndex !== i) {
+      let temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;
     }
-  };
-  backtrack([]);
-  return result;
+  }
+  return arr;
 }
