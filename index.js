@@ -1,14 +1,19 @@
-function selectionSort(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    let minIndex = i;
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[j] < arr[minIndex]) minIndex = j;
+function combinationSum2(candidates, target) {
+  candidates.sort((a, b) => a - b);
+  const result = [];
+  backtrack([], 0, 0);
+  return result;
+  function backtrack(combination, start, sum) {
+    if (sum === target) {
+      result.push([...combination]);
+      return;
     }
-    if (minIndex !== i) {
-      let temp = arr[i];
-      arr[i] = arr[minIndex];
-      arr[minIndex] = temp;
+    if (sum > target) return;
+    for (let i = start; i < candidates.length; i++) {
+      if (i > start && candidates[i] === candidates[i - 1]) continue;
+      combination.push(candidates[i]);
+      backtrack(combination, i + 1, sum + candidates[i]);
+      combination.pop();
     }
   }
-  return arr;
 }
